@@ -16,23 +16,23 @@ class Illustration(Simulation):
         self.center_position = np.array([0,0])
         self.g_acceleration = np.array([0,-9.8])
 
-        self.realistic_parameter()
-        super().initialize()
+        self.initialize()
         #Render
         self.camspeed = 1
         self.realtime_animation = False
         self.frames = 5
         self.substep = 20
-        self.collision_coefficient = 0.9
-        self.setup_position()
 
     def illustrate(self):
         self.Dt = 0.1*self.camspeed
         bound = self.bound
         fig, ax = plt.subplots()
-        scat = ax.scatter(self.p_list[:, 0], self.p_list[:, 1], c=np.linalg.norm(self.v_list,axis=1), cmap='rainbow', s=600*self.smoothing_radius, alpha=1 , vmin=0, vmax=8)
+        self.scatter_size = self.smoothing_radius*5670*bound[0]**-2
+        scat = ax.scatter(self.p_list[:, 0], self.p_list[:, 1], c=np.linalg.norm(self.v_list,axis=1), cmap='rainbow', s=self.scatter_size, alpha=1 , vmin=0, vmax=8)
         plt.colorbar(scat, label='Speed')
         fig.legend([f'viscosity = {self.viscosity}'])
+        plt.xlabel("x (m)")
+        plt.ylabel("y (m)")
 
         #animation computation
         ax.set_xlim(-bound[0], bound[0])
@@ -61,7 +61,7 @@ class Illustration(Simulation):
     def illustrate_setup(self):
         bound = self.bound
         fig, ax = plt.subplots()
-        scat = ax.scatter(self.p_list[:, 0], self.p_list[:, 1], c=np.linalg.norm(self.v_list,axis=1), cmap='rainbow', s=600*self.smoothing_radius, alpha=1 , vmin=0, vmax=8)
+        scat = ax.scatter(self.p_list[:, 0], self.p_list[:, 1], c=np.linalg.norm(self.v_list,axis=1), cmap='rainbow', s=self.scatter_size, alpha=1 , vmin=0, vmax=8)
         plt.colorbar(scat, label='Speed')
         fig.legend([f'viscosity = {self.viscosity}'])
 

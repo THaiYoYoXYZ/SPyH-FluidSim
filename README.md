@@ -81,7 +81,3 @@ This simulator uses:
 ## 📃 License
 
 MIT License.
-
----
-
-Let me know if you want me to create this file for you directly or include an actual GUI screenshot.
